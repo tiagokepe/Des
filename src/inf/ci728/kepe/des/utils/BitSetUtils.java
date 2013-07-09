@@ -4,9 +4,9 @@ import java.util.BitSet;
 
 public class BitSetUtils
 {
-	public static BitSet getBitSetFromInt(int value)
+	public static BitSet getBitSetFromInt(int value, int size)
 	{
-		BitSet bits = new BitSet();
+		BitSet bits = new BitSet(size);
 		boolean bitValue;
 		int index = 0;
 		while(value > 0)
