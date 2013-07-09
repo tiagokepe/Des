@@ -3,10 +3,15 @@ package inf.ci728.kepe.des;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -24,7 +29,7 @@ import inf.ci728.kepe.des.utils.BitSetUtils;
  */
 public class Des
 {
-	private static int BLOCK_SIZE, SUB_KEY_SIZE = 8;
+	private static int BLOCK_SIZE = 8, SUB_KEY_SIZE = 8;
 	private static int KEY_SIZE = 10;
 	private static int MATRIX_SIZE = 4;
 	private static int BOXES_CONTENT_SIZE = 2;
@@ -278,7 +283,7 @@ public class Des
 			concat.set(i, left.get(i));
 		
 		for(; i < size; i++)
-			concat.set(i, right.get(i));
+			concat.set(i, right.get(i - (size/2)));
 		
 		return concat;
 	}
@@ -313,8 +318,8 @@ public class Des
 		for(i=0; i < size/2; i++)
 			leftSide.set(i, bits.get(i));
 		
-		for(; i>size; i++)
-			rightSide.set(i, bits.get(i));
+		for(; i < size; i++)
+			rightSide.set(i - (size/2), bits.get(i));
 	}
 	
 	private BitSet FK(BitSet bitInLeft, BitSet bitInRight, BitSet key)
@@ -369,59 +374,80 @@ public class Des
 			System.exit(-1);
 		}
 		
-		File inputFile = new File(args[0]);
-		if(!isFileOK(inputFile))
+		File inFile = new File(args[0]);
+		if(!isFileOK(inFile))
 			System.exit(-1);
 		
-		String key = args[1];
-		if(!isKeyOK(key))
+		if(!isKeyOK(args[1]))
 			System.exit(-2);
 
+		int key = Integer.valueOf(args[1]);
 		Des des = new Des();
-		BufferedReader buffReader = openReadStream(inputFile);
-		BufferedWriter buffWriter = openWriteStream(new File("encoded/"+inputFile.getName()));
-		int intCh = -1;
-		while((intCh = getCharFromStream(buffReader)) != -1)
-			//TODO implementar char para BitSet e chamar encode
-			des.encode(plainText);
+		des.keyGeneration(BitSetUtils.getBitSetFromInt(key, Des.KEY_SIZE));
+		InputStream inStream = openInputStream(inFile);
+		File outFile = new File("encoded/"+inFile.getName());
+		OutputStream outStream = openOutputStream(outFile);
+		byte[] inByte = new byte[1];
+		byte encodedByte;
 		
+		while( getByteFromStream(inStream, inByte) != -1)
+		{
+			encodedByte = BitSetUtils.bitSetToByte(
+					des.encode(BitSetUtils.getBitSetFromByte(inByte[0], Des.BLOCK_SIZE)));
+			try {
+				outStream.write(encodedByte);
+			} catch (IOException e) {
+				System.out.println("Error: failed to write "+encodedByte+" in the file: "
+						+outFile.getAbsolutePath());
+				e.printStackTrace();
+			}
+		}
+		
+		try {
+			inStream.close();
+		} catch (IOException e) {
+			System.out.println("Error: failed to close file "+inFile.getAbsolutePath());
+			e.printStackTrace();
+		}
+		try {
+			outStream.close();
+		} catch (IOException e) {
+			System.out.println("Error: failed to close file "+outFile.getAbsolutePath());
+			e.printStackTrace();
+		}
 	}
 	
-	private static BufferedWriter openWriteStream(File file)
+	private static OutputStream openOutputStream(File file)
 	{
-		BufferedWriter buff = null;
+		OutputStream stream = null;
 		try {
-			buff = new BufferedWriter(new FileWriter(file));
+			stream = new FileOutputStream(file);
 		} catch (IOException e) {
 			System.out.println("Error: Failed to open write file - "+file.getAbsolutePath());
 			e.printStackTrace();
 		}
-		return buff;
+		return stream;
 	}
 	
-	private static BufferedReader openReadStream(File file)
+	private static InputStream openInputStream(File file)
 	{
-		BufferedReader buff = null;
+		InputStream stream = null;
 		try {
-			buff = new BufferedReader(new FileReader(file));
+			stream = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
 			System.out.println("Error: Failed to open input file - "+file.getAbsolutePath());
 			e.printStackTrace();
 		}
-		return buff;
+		return stream;
 	}
 	
-	@SuppressWarnings("finally")
-	private static int getCharFromStream(BufferedReader stream)
+	private static int getByteFromStream(InputStream stream, byte[] arrayByte)
 	{
 		try {
-			return (char)stream.read();
+			return stream.read(arrayByte, 0, 1);
 		} catch (IOException e) {
-			System.out.println("Error: Failed to read char from input file.");
+			System.out.println("Error: Failed to read byte from input file.");
 			e.printStackTrace();
-		}
-		finally
-		{
 			return -1;
 		}
 	}
@@ -433,7 +459,7 @@ public class Des
 			System.out.println("The file does not be null!");
 			return false;
 		}
-		if(fileIn.exists())
+		if(!fileIn.exists())
 		{
 			System.out.println("The file: "+fileIn.getAbsolutePath()+
 					" there is not!");
@@ -455,20 +481,12 @@ public class Des
 			return false;
 		}
 
-		if(key.length() != 10)
+		if(key.length() > 1023)
 		{
-			System.out.println("The key size does not be minor than 10!");
+			System.out.println("Invalid value: the key is greater than 1023!");
 			return false;
 		}
 		
-		for(char ch: key.toCharArray())
-		{
-			if(ch != '0' && ch != '1');
-			{
-				System.out.println("The key must be in bit format, i.e., 1010011010.");
-				return false;
-			}
-		}	
 		return true;
 	}
 

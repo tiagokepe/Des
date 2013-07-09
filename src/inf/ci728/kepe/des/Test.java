@@ -2,13 +2,14 @@ package inf.ci728.kepe.des;
 
 import java.util.BitSet;
 import inf.ci728.kepe.des.Des;
+import inf.ci728.kepe.des.utils.BitSetUtils;
 
 public class Test {
 	
 	Des des = new Des();
 
 	public static void main(String[] args) {
-		BitSet bits = new BitSet();
+/*		BitSet bits = new BitSet();
 		bits.set(0, true);
 		bits.set(1, false);
 
@@ -32,8 +33,18 @@ public class Test {
 		
 		printBitSet(Test.getBitSetFromInt(10));
 		System.out.println("10 = "+Test.getBitSetFromInt(10));
-
+*/
 		//System.out.println("10 = "+Test.getBitSetFromIng(10).toString());
+		
+		//printBitSet(BitSetUtils.getBitSetFromChar('A', 8));
+		char ch = 'r';
+		byte b = (byte) ch;
+		System.out.println("B = "+b);
+		BitSet bitSet = BitSetUtils.getBitSetFromByte(b, 8);
+		BitSetUtils.printBitSet(bitSet);
+		byte newByte = BitSetUtils.bitSetToByte(bitSet);
+		System.out.println("B = "+newByte);
+
 	}
 	
 	private static int bitSetToInt(BitSet bitSet)
@@ -48,9 +59,9 @@ public class Test {
 	    return result;
 	}
 	
-	private static BitSet getBitSetFromInt(int value)
+	private static BitSet getBitSetFromInt(int value, int size)
 	{
-		BitSet bits = new BitSet();
+		BitSet bits = new BitSet(size);
 		boolean bitValue;
 		int index = 0;
 		while(value > 0)
@@ -74,6 +85,32 @@ public class Test {
 		return bits;
 	}
 
+	private static BitSet getBitSetFromChar(char value, int size)
+	{
+		BitSet bits = new BitSet(size);
+		boolean bitValue;
+		int index = 0;
+		while(value > 0)
+		{
+			if((value % 2) == 0)
+			{
+				bitValue = false;
+				//System.out.print(0);
+			}
+			else
+			{
+				bitValue = true;
+				//System.out.print(1);
+			}
+			
+			
+			bits.set(index++, bitValue);
+			value /= 2;
+		}
+		System.out.println();
+		return bits;
+	}
+	
 	private static void printBitSet(BitSet bits)
 	{
 		boolean bit;
