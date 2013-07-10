@@ -1,2 +1,8 @@
 bin/
 bin/*
+classes/
+classes/*
+lib/
+lib/*
+encoded/*
+decoded/*
