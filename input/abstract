@@ -1,0 +1,17 @@
+% abstract
+Currently with the popularity of internet and phenomenon of the social
+networks a large amount of data is generated day-to-day. To analyse and
+process such quantity of data the big companies are using MapReduce
+paradigm. The Hadoop framework implements MapReduce paradigm, it is robust
+tool that provides a simple interface to implement MapReduce jobs, however for
+each job there are many knobs to adjust that depents of the data stored and job
+running. Find a good configuration spends too much time and a configuration found
+right now may be impracticable of the next time.
+
+In order to facilitate and automate the hadoop job configuration, we propose
+a framework based on a revolutionary algorithm. Our framework allows to find a
+good job configuration considering the data stored and the job in question.
+The users can provide your usuals job configurations and get the new job
+configuration that will be more appropriate with the current state of data
+stored and the hadoop cluster. So the users have a tool end-to-end to automate
+the choice of knobs for each job.

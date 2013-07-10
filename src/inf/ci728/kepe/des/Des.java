@@ -1,22 +1,17 @@
 package inf.ci728.kepe.des;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import inf.ci728.kepe.des.utils.BitSetUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
-import inf.ci728.kepe.des.utils.BitSetUtils;
 
 /**
  * This class use the BitSet class as base.
@@ -96,7 +91,7 @@ public class Des
 	 */
 	public BitSet IP(BitSet text)
 	{
-		BitSet ret = new BitSet(BLOCK_SIZE);
+/*		BitSet ret = new BitSet(BLOCK_SIZE);
 		ret.set(0, text.get(3));
 		ret.set(1, text.get(0));
 		ret.set(2, text.get(2));
@@ -105,6 +100,16 @@ public class Des
 		ret.set(5, text.get(1));
 		ret.set(6, text.get(7));
 		ret.set(7, text.get(5));
+		return ret;*/
+		BitSet ret = new BitSet(BLOCK_SIZE);
+		ret.set(0, text.get(1));
+		ret.set(1, text.get(3));
+		ret.set(2, text.get(0));
+		ret.set(3, text.get(4));
+		ret.set(4, text.get(7));
+		ret.set(5, text.get(5));
+		ret.set(6, text.get(2));
+		ret.set(7, text.get(6));
 		return ret;
 	}
 	
@@ -115,7 +120,7 @@ public class Des
 	 */
 	public BitSet IP_1(BitSet text)
 	{
-		BitSet ret = new BitSet(BLOCK_SIZE);
+/*		BitSet ret = new BitSet(BLOCK_SIZE);
 		ret.set(0, text.get(1));
 		ret.set(1, text.get(5));
 		ret.set(2, text.get(2));
@@ -124,6 +129,16 @@ public class Des
 		ret.set(5, text.get(7));
 		ret.set(6, text.get(4));
 		ret.set(7, text.get(6));
+		return ret;*/
+		BitSet ret = new BitSet(BLOCK_SIZE);
+		ret.set(0, text.get(2));
+		ret.set(1, text.get(0));
+		ret.set(2, text.get(6));
+		ret.set(3, text.get(1));
+		ret.set(4, text.get(3));
+		ret.set(5, text.get(5));
+		ret.set(6, text.get(7));
+		ret.set(7, text.get(4));
 		return ret;
 	}
 	
@@ -134,6 +149,16 @@ public class Des
 	 */
 	public BitSet EP(BitSet bitIn)
 	{
+/*		BitSet ret = new BitSet(BLOCK_SIZE);
+		ret.set(0, bitIn.get(3));
+		ret.set(1, bitIn.get(0));
+		ret.set(2, bitIn.get(1));
+		ret.set(3, bitIn.get(2));
+		ret.set(4, bitIn.get(1));
+		ret.set(5, bitIn.get(2));
+		ret.set(6, bitIn.get(3));
+		ret.set(7, bitIn.get(0));
+		return ret;*/
 		BitSet ret = new BitSet(BLOCK_SIZE);
 		ret.set(0, bitIn.get(3));
 		ret.set(1, bitIn.get(0));
@@ -153,17 +178,29 @@ public class Des
 	 */
 	public BitSet P10(BitSet bitIn)
 	{
+//		BitSet ret = new BitSet(KEY_SIZE);
+//		ret.set(0, bitIn.get(2));
+//		ret.set(1, bitIn.get(4));
+//		ret.set(2, bitIn.get(1));
+//		ret.set(3, bitIn.get(6));
+//		ret.set(4, bitIn.get(3));
+//		ret.set(5, bitIn.get(9));
+//		ret.set(6, bitIn.get(0));
+//		ret.set(7, bitIn.get(8));
+//		ret.set(8, bitIn.get(7));
+//		ret.set(9, bitIn.get(5));
+//		return ret;
 		BitSet ret = new BitSet(KEY_SIZE);
-		ret.set(0, bitIn.get(2));
-		ret.set(1, bitIn.get(4));
+		ret.set(0, bitIn.get(4));
+		ret.set(1, bitIn.get(2));
 		ret.set(2, bitIn.get(1));
-		ret.set(3, bitIn.get(6));
-		ret.set(4, bitIn.get(3));
-		ret.set(5, bitIn.get(9));
-		ret.set(6, bitIn.get(0));
+		ret.set(3, bitIn.get(9));
+		ret.set(4, bitIn.get(0));
+		ret.set(5, bitIn.get(6));
+		ret.set(6, bitIn.get(3));
 		ret.set(7, bitIn.get(8));
-		ret.set(8, bitIn.get(7));
-		ret.set(9, bitIn.get(5));
+		ret.set(8, bitIn.get(5));
+		ret.set(9, bitIn.get(7));
 		return ret;
 	}
 	
@@ -174,7 +211,7 @@ public class Des
 	 */
 	public BitSet P8(BitSet bitsIn)
 	{
-		BitSet ret = new BitSet(BLOCK_SIZE);
+/*		BitSet ret = new BitSet(BLOCK_SIZE);
 		ret.set(0, bitsIn.get(5));
 		ret.set(1, bitsIn.get(2));
 		ret.set(2, bitsIn.get(6));
@@ -183,6 +220,16 @@ public class Des
 		ret.set(5, bitsIn.get(4));
 		ret.set(6, bitsIn.get(9));
 		ret.set(7, bitsIn.get(8));
+		return ret;*/
+		BitSet ret = new BitSet(BLOCK_SIZE);
+		ret.set(0, bitsIn.get(1));
+		ret.set(1, bitsIn.get(0));
+		ret.set(2, bitsIn.get(5));
+		ret.set(3, bitsIn.get(2));
+		ret.set(4, bitsIn.get(6));
+		ret.set(5, bitsIn.get(3));
+		ret.set(6, bitsIn.get(7));
+		ret.set(7, bitsIn.get(4));
 		return ret;
 	}
 	
@@ -193,11 +240,17 @@ public class Des
 	 */
 	public BitSet P4(BitSet bitsIn)
 	{
-		BitSet ret = new BitSet(BLOCK_SIZE/2);
+/*		BitSet ret = new BitSet(BLOCK_SIZE/2);
 		ret.set(0, bitsIn.get(1));
 		ret.set(1, bitsIn.get(3));
 		ret.set(2, bitsIn.get(2));
 		ret.set(3, bitsIn.get(0));
+		return ret;*/
+		BitSet ret = new BitSet(BLOCK_SIZE/2);
+		ret.set(0, bitsIn.get(3));
+		ret.set(1, bitsIn.get(1));
+		ret.set(2, bitsIn.get(0));
+		ret.set(3, bitsIn.get(2));
 		return ret;
 	}
 	
@@ -208,12 +261,19 @@ public class Des
 	 */
 	public BitSet LS_1(BitSet bitIn)
 	{
-		BitSet ret = new BitSet(BLOCK_SIZE-3);
+/*		BitSet ret = new BitSet(BLOCK_SIZE-3);
 		ret.set(0, bitIn.get(1));
 		ret.set(1, bitIn.get(2));
 		ret.set(2, bitIn.get(3));
 		ret.set(3, bitIn.get(4));
 		ret.set(4, bitIn.get(0));
+		return ret;*/
+		BitSet ret = new BitSet(BLOCK_SIZE-3);
+		ret.set(0, bitIn.get(4));
+		ret.set(1, bitIn.get(0));
+		ret.set(2, bitIn.get(1));
+		ret.set(3, bitIn.get(2));
+		ret.set(4, bitIn.get(3));
 		return ret;
 	}
 	
@@ -224,12 +284,19 @@ public class Des
 	 */
 	public BitSet LS_2(BitSet bitIn)
 	{
-		BitSet ret = new BitSet(BLOCK_SIZE-3);
+/*		BitSet ret = new BitSet(BLOCK_SIZE-3);
 		ret.set(0, bitIn.get(2));
 		ret.set(1, bitIn.get(3));
 		ret.set(2, bitIn.get(4));
 		ret.set(3, bitIn.get(0));
 		ret.set(4, bitIn.get(1));
+		return ret;*/
+		BitSet ret = new BitSet(BLOCK_SIZE-3);
+		ret.set(0, bitIn.get(3));
+		ret.set(1, bitIn.get(4));
+		ret.set(2, bitIn.get(0));
+		ret.set(3, bitIn.get(1));
+		ret.set(4, bitIn.get(2));
 		return ret;
 	}
 	
@@ -288,29 +355,6 @@ public class Des
 		return concat;
 	}
 	
-/*	private BitSet buildLeftKey(BitSet key)
-	{
-		BitSet leftKey = new BitSet(5); 
-		leftKey.set(0, key.get(0));
-		leftKey.set(1, key.get(1));
-		leftKey.set(2, key.get(2));
-		
-		leftKey.set(3, key.get(3));
-		leftKey.set(4, key.get(4));
-		return leftKey;
-	}
-
-	private BitSet buildRightKey(BitSet key)
-	{
-		BitSet rightKey = new BitSet(5); 
-		rightKey.set(0, key.get(5));
-		rightKey.set(1, key.get(6));
-		rightKey.set(2, key.get(7));
-		rightKey.set(3, key.get(8));
-		rightKey.set(4, key.get(9));
-		return rightKey;
-	}*/
-	
 	private void breakBitsInHalf(BitSet bits, BitSet leftSide, BitSet rightSide,
 			int size)
 	{
@@ -354,7 +398,7 @@ public class Des
 		
 		BitSet leftSide = new BitSet(BLOCK_SIZE/2);
 		BitSet rightSide = new BitSet(BLOCK_SIZE/2);
-		breakBitsInHalf(plainText, leftSide, rightSide, BLOCK_SIZE);
+		breakBitsInHalf(encoded, leftSide, rightSide, BLOCK_SIZE);
 		
 		BitSet fkResult1 = FK(leftSide, rightSide, this.K1);
 		
@@ -366,22 +410,65 @@ public class Des
 		return encoded;
 	}
 	
-	public static void main(String[] args)
+	public static void runDecode(String args[])
 	{
-		if(args.length != 2)
-		{
-			System.out.println("Usage: <des> <file path> <key in bits representation: 1010011010>");
-			System.exit(-1);
-		}
-		
-		File inFile = new File(args[0]);
+		File inFile = new File(args[1]);
 		if(!isFileOK(inFile))
 			System.exit(-1);
 		
 		if(!isKeyOK(args[1]))
 			System.exit(-2);
 
-		int key = Integer.valueOf(args[1]);
+		int key = Integer.valueOf(args[2]);
+		Des des = new Des();
+		des.keyGeneration(BitSetUtils.getBitSetFromInt(key, Des.KEY_SIZE));
+		InputStream inStream = openInputStream(inFile);
+		File outFile = new File("decoded/"+inFile.getName());
+		OutputStream outStream = openOutputStream(outFile);
+		byte[] inByte = new byte[1];
+		byte decodedByte;
+		
+		while( getByteFromStream(inStream, inByte) != -1)
+		{
+			decodedByte = BitSetUtils.bitSetToByte(
+					des.decode(BitSetUtils.getBitSetFromByte(inByte[0], Des.BLOCK_SIZE)));
+			try
+			{
+				outStream.write(decodedByte);
+			} catch (IOException e)
+			{
+				System.out.println("Error: failed to write "+inByte[0]+" in the file: "
+						+outFile.getAbsolutePath());
+				e.printStackTrace();
+			}
+		}
+		
+		try
+		{
+			inStream.close();
+		} catch (IOException e)
+		{
+			System.out.println("Error: failed to close file "+inFile.getAbsolutePath());
+			e.printStackTrace();
+		}
+		try {
+			outStream.close();
+		} catch (IOException e) {
+			System.out.println("Error: failed to close file "+outFile.getAbsolutePath());
+			e.printStackTrace();
+		}
+	}
+	
+	public static void runEncode(String args[])
+	{
+		File inFile = new File(args[1]);
+		if(!isFileOK(inFile))
+			System.exit(-1);
+		
+		if(!isKeyOK(args[1]))
+			System.exit(-2);
+
+		int key = Integer.valueOf(args[2]);
 		Des des = new Des();
 		des.keyGeneration(BitSetUtils.getBitSetFromInt(key, Des.KEY_SIZE));
 		InputStream inStream = openInputStream(inFile);
@@ -394,9 +481,11 @@ public class Des
 		{
 			encodedByte = BitSetUtils.bitSetToByte(
 					des.encode(BitSetUtils.getBitSetFromByte(inByte[0], Des.BLOCK_SIZE)));
-			try {
+			try
+			{
 				outStream.write(encodedByte);
-			} catch (IOException e) {
+			} catch (IOException e)
+			{
 				System.out.println("Error: failed to write "+encodedByte+" in the file: "
 						+outFile.getAbsolutePath());
 				e.printStackTrace();
@@ -409,12 +498,60 @@ public class Des
 			System.out.println("Error: failed to close file "+inFile.getAbsolutePath());
 			e.printStackTrace();
 		}
-		try {
+		try
+		{
 			outStream.close();
-		} catch (IOException e) {
+		} catch (IOException e)
+		{
 			System.out.println("Error: failed to close file "+outFile.getAbsolutePath());
 			e.printStackTrace();
 		}
+	}
+	
+	private BitSet decode(BitSet encodedByte)
+	{
+		BitSet decoded = new BitSet(BLOCK_SIZE);
+		decoded = IP(encodedByte);
+		
+		BitSet leftSide = new BitSet(BLOCK_SIZE/2);
+		BitSet rightSide = new BitSet(BLOCK_SIZE/2);
+		breakBitsInHalf(decoded, leftSide, rightSide, BLOCK_SIZE);
+		
+		BitSet fkResult1 = FK(leftSide, rightSide, this.K2);
+		
+		SW(fkResult1, rightSide);
+		
+		BitSet fkResult2 = FK(rightSide, fkResult1, this.K1);
+
+		decoded = IP_1(concatLeftAndRight(fkResult2, fkResult1, BLOCK_SIZE));
+		return decoded;
+	}
+	
+	public static void main(String[] args)
+	{
+		if(args.length != 3)
+		{
+			System.out.println("Usage: <des> <options> <file path> <key>");
+			System.out.println("options: <decode | encode | both>");
+			System.exit(-1);
+		}
+		
+		if(args[0].equals("encode"))
+		{
+			Des.runEncode(args);
+		}
+		else if(args[0].equals("decode"))
+		{
+			Des.runDecode(args);
+		}
+		else if(args[0].equals("both"))
+		{
+			Des.runEncode(args);
+			args[1] = "encoded/"+args[1].split("/")[1];
+			Des.runDecode(args);
+		}
+		else
+			System.out.println("Invalid option -> "+args[0]);
 	}
 	
 	private static OutputStream openOutputStream(File file)

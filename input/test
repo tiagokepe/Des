@@ -1,0 +1,24 @@
+Cifra Feistel
+
+Na criptografia, uma cifra de Feistel é uma estrutura simétrica usada na construção
+de cifras de bloco, o nome é uma homenagem ao físico e criptógrafo alemão Horst
+Feistel, que foi o pioneiro na pesquisa enquanto trabalhava na IBM (EUA); esta
+cifra é comumente conhecida como rede de Feistel. Uma grande quantidade das cifras
+de bloco utilizam este esquema, incluindo o Data Encryption Standard (DES). A
+estrutura de Feistel tem a vantagem de que as operações de cifragem e decifragem
+são muito semelhantes, sendo idênticas em alguns casos, necessitando apenas da
+utilização das chaves na ordem inversa. Portanto, a quantidade de código ou de
+circuitos necessária para implementar tal cifra é praticamente a metade, pois não
+precisamos implementar dois algoritmos diferentes, um para cifragem e outro para
+decifragem.
+Uma rede de Feistel é uma cifra iterada com uma função interna chamada função rodada.
+
+História
+
+As redes de Feistel foram vistas pela primeira vez comercialmente na cifra Lucifer
+da IBM, projetada por Horst Feistel e Don Coppersmith. As redes de Feistel se
+ganharam maior importância quando o Governo Federal dos Estados Unidos adotou o
+DES (uma cifra baseada na cifra de Lucifer, com mudanças realizadas pela NSA).
+Tal como outros componentes do DES, a natureza iterativa da construção de Feistel
+torna fácil a implementação do sistema de encriptação em hardware. (particularmente
+no hardware disponível na época em que o DES foi projetado).
