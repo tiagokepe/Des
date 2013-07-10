@@ -410,6 +410,25 @@ public class Des
 		return encoded;
 	}
 	
+	private BitSet decode(BitSet encodedByte)
+	{
+		BitSet decoded = new BitSet(BLOCK_SIZE);
+		decoded = IP(encodedByte);
+		
+		BitSet leftSide = new BitSet(BLOCK_SIZE/2);
+		BitSet rightSide = new BitSet(BLOCK_SIZE/2);
+		breakBitsInHalf(decoded, leftSide, rightSide, BLOCK_SIZE);
+		
+		BitSet fkResult1 = FK(leftSide, rightSide, this.K2);
+		
+		SW(fkResult1, rightSide);
+		
+		BitSet fkResult2 = FK(rightSide, fkResult1, this.K1);
+
+		decoded = IP_1(concatLeftAndRight(fkResult2, fkResult1, BLOCK_SIZE));
+		return decoded;
+	}
+	
 	public static void runDecode(String args[])
 	{
 		File inFile = new File(args[1]);
@@ -506,25 +525,6 @@ public class Des
 			System.out.println("Error: failed to close file "+outFile.getAbsolutePath());
 			e.printStackTrace();
 		}
-	}
-	
-	private BitSet decode(BitSet encodedByte)
-	{
-		BitSet decoded = new BitSet(BLOCK_SIZE);
-		decoded = IP(encodedByte);
-		
-		BitSet leftSide = new BitSet(BLOCK_SIZE/2);
-		BitSet rightSide = new BitSet(BLOCK_SIZE/2);
-		breakBitsInHalf(decoded, leftSide, rightSide, BLOCK_SIZE);
-		
-		BitSet fkResult1 = FK(leftSide, rightSide, this.K2);
-		
-		SW(fkResult1, rightSide);
-		
-		BitSet fkResult2 = FK(rightSide, fkResult1, this.K1);
-
-		decoded = IP_1(concatLeftAndRight(fkResult2, fkResult1, BLOCK_SIZE));
-		return decoded;
 	}
 	
 	public static void main(String[] args)
